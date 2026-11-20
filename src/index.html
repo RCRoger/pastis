@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f2ec">
+    <title>Three.js Cake Customizer</title>
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="brand">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <path d="M5 17h22v10H5zM7 17l2-8h14l2 8M9 9l2-4m5 4V3m5 6-2-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 22c2.4-2 4.7 2 7.1 0s4.7 2 7.1 0 4.7 2 7.8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="brand-copy">
+                    <span class="brand-name">Cake Studio</span>
+                    <span class="brand-caption" data-i18n="brandCaption">A little sweetness, your way</span>
+                </span>
+            </div>
+            <div class="language-control">
+                <label for="language-selector" data-i18n="language">Language</label>
+                <select id="language-selector" class="select-control">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="ca" selected>Català</option>
+                </select>
+            </div>
+        </header>
+
+        <main class="workspace">
+            <section class="preview-panel" aria-labelledby="preview-title">
+                <div class="preview-heading">
+                    <div>
+                        <p class="eyebrow" data-i18n="previewEyebrow">YOUR WORKSPACE</p>
+                        <h1 id="preview-title" data-i18n="previewTitle">Your cake, in 3D</h1>
+                    </div>
+                    <span class="preview-badge">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        <span data-i18n="previewMode">Live preview</span>
+                    </span>
+                </div>
+                <div class="preview-stage">
+                    <div id="canvas-container" role="img" aria-label="Interactive 3D cake preview"></div>
+                    <p class="preview-hint">
+                        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                            <path d="M4 10a6 6 0 1 0 1.8-4.3M4 4v3h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="previewHint">Drag to rotate · scroll to zoom</span>
+                    </p>
+                </div>
+            </section>
+
+            <aside id="menu" class="settings-panel" aria-labelledby="menu-title">
+                <div class="settings-intro">
+                    <p class="eyebrow" data-i18n="editorEyebrow">THE DETAILS</p>
+                    <h2 id="menu-title" data-i18n="editorTitle">Make it yours</h2>
+                    <p class="intro-copy" data-i18n="editorDescription">Choose your colours, layers and finishing touches.</p>
+                </div>
+
+                <section class="settings-group" aria-labelledby="appearance-title">
+                    <div class="group-heading">
+                        <span class="group-index" aria-hidden="true">01</span>
+                        <h3 id="appearance-title" data-i18n="appearance">Colour & finish</h3>
+                    </div>
+                    <div class="color-grid">
+                        <label class="color-control" for="cake-color">
+                            <span data-i18n="cakeColor">Cake Color</span>
+                            <input type="color" id="cake-color" value="#D2691E">
+                        </label>
+                        <label class="color-control" for="frosting-color">
+                            <span data-i18n="frostingColor">Frosting Color</span>
+                            <input type="color" id="frosting-color" value="#FFFFFF">
+                        </label>
+                        <label class="color-control" for="cream-color">
+                            <span data-i18n="creamColor">Cream Color</span>
+                            <input type="color" id="cream-color" value="#FFFDD0">
+                        </label>
+                        <label class="color-control" for="chocolate-color">
+                            <span data-i18n="chocolateColor">Chocolate Color</span>
+                            <input type="color" id="chocolate-color" value="#8B4513">
+                        </label>
+                    </div>
+                </section>
+
+                <section class="settings-group" aria-labelledby="structure-title">
+                    <div class="group-heading">
+                        <span class="group-index" aria-hidden="true">02</span>
+                        <h3 id="structure-title" data-i18n="structure">Cake structure</h3>
+                    </div>
+                    <div class="field-control">
+                        <label for="cake-size" data-i18n="cakeSize">Cake Size</label>
+                        <select id="cake-size" class="select-control">
+                            <option value="small" data-i18n="small">Small</option>
+                            <option value="medium" selected data-i18n="medium">Medium</option>
+                            <option value="large" data-i18n="large">Large</option>
+                        </select>
+                    </div>
+                    <div class="field-control layer-control">
+                        <label for="num-layers" data-i18n="numLayers">Number of Layers</label>
+                        <input type="number" id="num-layers" class="number-control" value="1" min="1" max="10" inputmode="numeric" aria-describedby="layers-hint">
+                        <span id="layers-hint" class="field-hint" data-i18n="layersHint">Choose between 1 and 10 layers</span>
+                    </div>
+                </section>
+
+                <section class="settings-group toppings-group" aria-labelledby="toppings-title">
+                    <div class="group-heading">
+                        <span class="group-index" aria-hidden="true">03</span>
+                        <h3 id="toppings-title" data-i18n="toppings">Toppings</h3>
+                    </div>
+                    <p id="toppings-hint" class="field-hint" data-i18n="toppingsHint">Select one or more decorations</p>
+                    <select id="toppings-select" class="toppings-control" multiple size="4" aria-labelledby="toppings-title" aria-describedby="toppings-hint">
+                        <option value="cherry">Cherry</option>
+                        <option value="sprinkles">Sprinkles</option>
+                        <option value="strawberry">Strawberry</option>
+                        <option value="birthday">Birthday</option>
+                    </select>
+                </section>
+                <p class="panel-note" data-i18n="panelNote">Your changes appear on the cake as you go.</p>
+            </aside>
+        </main>
+    </div>
+    <script src="../dist/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - run: npm ci
+      
+      - run: npm run build
+
+      - name: Package build
+        run: |
+          mkdir -p package
+          cp -r dist package/dist
+          cp src/index.html package/index.html
+          (cd package && zip -r ../pastis.zip .)
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('package.json').version")
+          TAG="v${VERSION}.${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" pastis.zip \
+            --target "$GITHUB_SHA" \
+            --title "$TAG" \
+            --generate-notes
