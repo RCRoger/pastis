@@ -27,8 +27,7 @@ To get started with the project, follow these steps:
 
 1. **Clone the repository:**
    ```
-   git clone https://github.com/yourusername/threejs-custom-cakes.git
-   cd threejs-custom-cakes
+   git clone https://github.com/RCRoger/pastis.git
    ```
 
 2. **Install dependencies:**
@@ -46,7 +45,7 @@ To get started with the project, follow these steps:
 
 ## CI and Releases
 
-Every push to `main` runs `.github/workflows/release.yml`: it installs dependencies, validates OpenSpec, builds the project and publishes a GitHub Release tagged `v<package version>.<run number>` with `cake-customizer.zip` (`dist/` + `index.html`) attached. Serve the extracted zip with a static server.
+Every push to `main` runs `.github/workflows/release.yml`: it installs dependencies, validates OpenSpec, builds the project and publishes a GitHub Release tagged `v<package version>.<run number>` with `pastis.zip` (`dist/` + `index.html`) attached. Serve the extracted zip with a static server.
 
 ## Features
 
