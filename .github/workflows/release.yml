@@ -41,7 +41,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION=$(node -p "require('package.json').version")
+          VERSION=$(node -p "require('./package.json').version")
           TAG="v${VERSION}.${GITHUB_RUN_NUMBER}"
           gh release create "$TAG" pastis.zip \
             --target "$GITHUB_SHA" \
